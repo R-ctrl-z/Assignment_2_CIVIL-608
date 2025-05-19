@@ -4,15 +4,14 @@ import matplotlib.pyplot as plt
 import os
 
 # Set plotting defaults
-""" plt.rcParams.update({
+plt.rcParams.update({
     "lines.linewidth": 1.5,
     "axes.labelsize": 12,
-    "axes.titlesize": 14,
-    "legend.fontsize": 10,
-    "xtick.labelsize": 10,
-    "ytick.labelsize": 10,
-    "text.usetex": True,
-}) """
+    "axes.titlesize": 16,
+    "legend.fontsize": 16,
+    "xtick.labelsize": 12,
+    "ytick.labelsize": 12,
+})
 
 # File path to CSV
 csv_path = r"..\Data\CIVIL_608_Data.csv"
@@ -151,6 +150,10 @@ x_line = np.linspace(0, 0.5, 100)
 y_line = x_line
 
 fig, axs = plt.subplots(2, 2, figsize=(12, 10))
+plt.subplots_adjust(
+    wspace=0.05, hspace=0.25
+)  # Reduce space between columns (wspace)
+
 markers = ['o', '+', 's', '^', 'x', 'D']
 colors = ["#0072BD", "#D95319", "#EDB120", "#77AC30", "#7E2F8E", "#A2142F"]
 labels = [
@@ -171,7 +174,7 @@ for i, study in enumerate(studies):
         color=colors[i],
         label=labels[i]
     )
-ax.set_title("Equation (7) Straub (1934)")
+ax.set_title("Straub (1934)")
 ax.set_xlabel('Measured $y_{2}$ [m]')
 ax.set_ylabel('Computed $y_{2}$ [m]')
 ax.grid(True)
@@ -188,7 +191,7 @@ for i, study in enumerate(studies):
         color=colors[i],
         label=labels[i]
     )
-ax.set_title("Equation (10) Komura (1966)")
+ax.set_title("Komura (1966)")
 ax.set_xlabel('Measured $y_{2}$ [m]')
 ax.set_ylabel('Computed $y_{2}$ [m]')
 ax.grid(True)
@@ -205,7 +208,7 @@ for i, study in enumerate(studies):
         color=colors[i],
         label=labels[i]
     )
-ax.set_title("Equation (13) Gill (1981)")
+ax.set_title("Gill (1981)")
 ax.set_xlabel('Measured $y_{2}$ [m]')
 ax.set_ylabel('Computed $y_{2}$ [m]')
 ax.grid(True)
@@ -222,7 +225,7 @@ for i, study in enumerate(studies):
         color=colors[i],
         label=labels[i]
     )
-ax.set_title("Equation (15) Lim and Cheng (1998)")
+ax.set_title("Lim and Cheng (1998)")
 ax.set_xlabel('Measured $y_{2}$ [m]')
 ax.set_ylabel('Computed $y_{2}$ [m]')
 ax.grid(True)
@@ -235,7 +238,12 @@ for ax in axs.flat:
 
 # Legend
 handles, legend_labels = axs[1, 1].get_legend_handles_labels()
-fig.legend(handles, legend_labels, loc='lower center', ncol=3)
+fig.legend(handles,
+           legend_labels,
+           loc='lower center',
+           ncol=3,
+           bbox_to_anchor=(0.5, -0.03))
+plt.tight_layout(rect=[0, 0.08, 1, 1])
 plt.show()
 
 # Save the figure
